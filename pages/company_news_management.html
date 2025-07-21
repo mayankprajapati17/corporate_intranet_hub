@@ -133,26 +133,13 @@
                 </div>
 
                 <!-- Right Navigation -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 relative">
+                    <button class="p-2 text-secondary-400 hover:text-primary transition-smooth rounded-full hover:bg-secondary-100"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93-3.93 3.93-3.93-3.93 3.93-3.93z"/></svg><span class="absolute -top-1 -right-1 h-5 w-5 bg-error text-white text-xs rounded-full flex items-center justify-center">3</span></button>
                     <div class="relative">
-                        <button class="p-2 text-secondary-400 hover:text-primary transition-smooth rounded-full hover:bg-secondary-100">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93-3.93 3.93-3.93-3.93 3.93-3.93z"/>
-                            </svg>
-                            <span class="absolute -top-1 -right-1 h-5 w-5 bg-error text-white text-xs rounded-full flex items-center justify-center">3</span>
-                        </button>
-                    </div>
-                    <div class="relative">
-                        <button class="flex items-center space-x-3 p-2 rounded-lg hover:bg-secondary-100 transition-smooth">
-                            <img class="h-8 w-8 rounded-full object-cover" src="https://placehold.co/32x32/EFEFEF/333333?text=JS" alt="Profile" />
-                            <div class="text-left hidden sm:block">
-                                <p class="text-sm font-medium text-text-primary">John Smith</p>
-                                <p class="text-xs text-text-secondary">Senior Developer</p>
-                            </div>
-                            <svg class="h-4 w-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
+                        <button id="profileMenuBtn" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-secondary-100 transition-smooth focus:outline-none"><img class="h-8 w-8 rounded-full object-cover" src="https://placehold.co/32x32/EFEFEF/333333?text=JS" alt="Profile" /><div class="text-left hidden sm:block"><p class="text-sm font-medium text-text-primary">John Smith</p><p class="text-xs text-text-secondary">Senior Developer</p></div><svg class="h-4 w-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
+                        <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white border border-border rounded-md shadow-lg z-50">
+                            <button id="signOutBtn" class="block w-full text-left px-4 py-2 text-text-primary hover:bg-gray-100">Sign Out</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -574,6 +561,30 @@
             
             renderArticles();
         });
+
+        // Profile dropdown logic
+        const profileMenuBtn = document.getElementById('profileMenuBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const signOutBtn = document.getElementById('signOutBtn');
+        if (profileMenuBtn && profileDropdown) {
+            profileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('hidden');
+            });
+            document.addEventListener('click', (e) => {
+                if (!profileDropdown.classList.contains('hidden')) {
+                    profileDropdown.classList.add('hidden');
+                }
+            });
+            profileDropdown.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+        if (signOutBtn) {
+            signOutBtn.addEventListener('click', () => {
+                window.location.href = 'signup.html';
+            });
+        }
 
         // --- INITIALIZATION ---
         loadState();
