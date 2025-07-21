@@ -92,6 +92,32 @@
             border-radius: 0.5rem;
             border: 1px solid #e2e8f0;
         }
+        /* New styles for enhanced design */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+        }
+        .bg-gradient-purple {
+            background: linear-gradient(135deg, #6b21a8, #9333ea);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #4f46e5, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-title {
+            font-size: 1.875rem; /* 30px */
+            line-height: 2.25rem; /* 36px */
+        }
+        .section-divider {
+            height: 0.25rem; /* 4px */
+            background: linear-gradient(to right, #4f46e5, #6366f1);
+            border: none;
+            margin-top: 0.5rem; /* 8px */
+            margin-bottom: 1.5rem; /* 24px */
+        }
+        .card-primary {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+        }
     </style>
 </head>
 <body class="bg-background min-h-screen">
@@ -168,7 +194,7 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <!-- Page Header -->
         <div class="mb-6">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between mb-6">
                 <div>
                     <h2 class="text-2xl font-semibold text-text-primary">Events Calendar Management</h2>
                     <p class="text-text-secondary mt-1">Manage company events, meetings, and organizational activities</p>

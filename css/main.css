@@ -2041,127 +2041,164 @@ p, span, div {
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* --- Enhanced Color Palette --- */
 :root {
-  /* Primary Colors */
-  --color-primary: #2563EB;
-  /* blue-600 */
-  --color-primary-50: #EFF6FF;
-  /* blue-50 */
-  --color-primary-100: #DBEAFE;
-  /* blue-100 */
-  --color-primary-500: #3B82F6;
-  /* blue-500 */
-  --color-primary-600: #2563EB;
-  /* blue-600 */
-  --color-primary-700: #1D4ED8;
-  /* blue-700 */
-  /* Secondary Colors */
-  --color-secondary: #64748B;
-  /* slate-500 */
-  --color-secondary-100: #F1F5F9;
-  /* slate-100 */
-  --color-secondary-200: #E2E8F0;
-  /* slate-200 */
-  --color-secondary-400: #94A3B8;
-  /* slate-400 */
-  --color-secondary-500: #64748B;
-  /* slate-500 */
-  --color-secondary-600: #475569;
-  /* slate-600 */
-  /* Accent Colors */
-  --color-accent: #F59E0B;
-  /* amber-500 */
-  --color-accent-50: #FFFBEB;
-  /* amber-50 */
-  --color-accent-100: #FEF3C7;
-  /* amber-100 */
-  --color-accent-400: #FBBF24;
-  /* amber-400 */
-  --color-accent-500: #F59E0B;
-  /* amber-500 */
-  --color-accent-600: #D97706;
-  /* amber-600 */
-  /* Background Colors */
-  --color-background: #FAFAFA;
-  /* gray-50 */
-  --color-surface: #FFFFFF;
-  /* white */
-  /* Text Colors */
-  --color-text-primary: #1E293B;
-  /* slate-800 */
-  --color-text-secondary: #64748B;
-  /* slate-500 */
-  /* Status Colors */
-  --color-success: #10B981;
-  /* emerald-500 */
-  --color-success-50: #ECFDF5;
-  /* emerald-50 */
-  --color-success-100: #D1FAE5;
-  /* emerald-100 */
-  --color-success-500: #10B981;
-  /* emerald-500 */
-  --color-success-600: #059669;
-  /* emerald-600 */
-  --color-warning: #F59E0B;
-  /* amber-500 */
-  --color-warning-50: #FFFBEB;
-  /* amber-50 */
-  --color-warning-100: #FEF3C7;
-  /* amber-100 */
-  --color-warning-500: #F59E0B;
-  /* amber-500 */
-  --color-warning-600: #D97706;
-  /* amber-600 */
-  --color-error: #EF4444;
-  /* red-500 */
-  --color-error-50: #FEF2F2;
-  /* red-50 */
-  --color-error-100: #FEE2E2;
-  /* red-100 */
-  --color-error-500: #EF4444;
-  /* red-500 */
-  --color-error-600: #DC2626;
-  /* red-600 */
-  /* Border Colors */
-  --color-border: #E2E8F0;
-  /* slate-200 */
-  --color-border-light: #F1F5F9;
-  /* slate-100 */
-  /* Shadow Variables */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
-  /* Spacing System */
-  --spacing-xs: 0.5rem;
-  /* 8px */
-  --spacing-sm: 0.75rem;
-  /* 12px */
-  --spacing-md: 1rem;
-  /* 16px */
-  --spacing-lg: 1.5rem;
-  /* 24px */
-  --spacing-xl: 2rem;
-  /* 32px */
-  --spacing-2xl: 3rem;
-  /* 48px */
-  /* Typography Scale */
-  --text-xs: 0.75rem;
-  /* 12px */
-  --text-sm: 0.875rem;
-  /* 14px */
-  --text-base: 1rem;
-  /* 16px */
-  --text-lg: 1.125rem;
-  /* 18px */
-  --text-xl: 1.25rem;
-  /* 20px */
-  --text-2xl: 1.5rem;
-  /* 24px */
-  --text-3xl: 1.875rem;
-  /* 30px */
-  --text-4xl: 2.25rem;
-  /* 36px */
+  --primary: #4f46e5; /* Indigo */
+  --secondary: #6366f1; /* Blue */
+  --accent: #f59e42; /* Orange */
+  --success: #22c55e; /* Green */
+  --warning: #facc15; /* Yellow */
+  --purple: #a78bfa; /* Purple */
+  --background: #f8fafc;
+  --surface: #fff;
+  --border: #e2e8f0;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
 }
+
+/* --- Gradients --- */
+.bg-gradient-primary {
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  color: #fff;
+}
+.bg-gradient-accent {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--warning) 100%);
+  color: #fff;
+}
+.bg-gradient-purple {
+  background: linear-gradient(90deg, var(--purple) 0%, var(--primary) 100%);
+  color: #fff;
+}
+
+/* --- Accent Backgrounds --- */
+.bg-accent {
+  background-color: var(--accent);
+  color: #fff;
+}
+.bg-success {
+  background-color: var(--success);
+  color: #fff;
+}
+.bg-warning {
+  background-color: var(--warning);
+  color: #fff;
+}
+.bg-purple {
+  background-color: var(--purple);
+  color: #fff;
+}
+
+/* --- Colored Cards --- */
+.card-primary {
+  background: linear-gradient(135deg, var(--primary) 80%, #fff 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px 0 rgb(79 70 229 / 0.08);
+}
+.card-accent {
+  background: linear-gradient(135deg, var(--accent) 80%, #fff 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px 0 rgb(245 158 66 / 0.08);
+}
+.card-success {
+  background: linear-gradient(135deg, var(--success) 80%, #fff 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px 0 rgb(34 197 94 / 0.08);
+}
+.card-purple {
+  background: linear-gradient(135deg, var(--purple) 80%, #fff 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px 0 rgb(167 139 250 / 0.08);
+}
+
+/* --- Vibrant Buttons --- */
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-primary:hover {
+  background: var(--secondary);
+}
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-accent:hover {
+  background: var(--warning);
+}
+.btn-success {
+  background: var(--success);
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-success:hover {
+  background: #16a34a;
+}
+.btn-purple {
+  background: var(--purple);
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-purple:hover {
+  background: var(--primary);
+}
+
+/* --- Section Headings --- */
+.section-title {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5em;
+}
+.section-divider {
+  border: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--success), var(--purple));
+  margin: 1.5em 0;
+  border-radius: 2px;
+}
+
+/* --- Misc Modern Touches --- */
+.rounded-xl {
+  border-radius: 1rem !important;
+}
+.shadow-xl {
+  box-shadow: 0 8px 32px 0 rgb(30 41 59 / 0.12) !important;
+}
+.text-gradient {
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--success), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* --- Example Usage --- */
+/*
+<div class="card-primary p-6 rounded-xl shadow-xl">
+  <h2 class="section-title">Welcome!</h2>
+  <hr class="section-divider" />
+  ...
+</div>
+<button class="btn-accent">Get Started</button>
+*/
 
 /* Base Styles */
 
