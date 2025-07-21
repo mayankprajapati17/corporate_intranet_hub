@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notification Center - Corporate Intranet Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles to match the original design intent */
+        .bg-background { background-color: #f8fafc; }
+        .bg-surface { background-color: #ffffff; }
+        .bg-primary { background-color: #4f46e5; }
+        .bg-primary-50 { background-color: #eef2ff; }
+        .text-primary { color: #4f46e5; }
+        .border-primary { border-color: #4f46e5; }
+        .bg-success { background-color: #22c55e; }
+        .text-success { color: #16a34a; }
+        .bg-accent { background-color: #f97316; }
+        .text-accent { color: #f97316; }
+        .bg-error { background-color: #ef4444; }
+        .text-error { color: #ef4444; }
+        .bg-secondary { background-color: #64748b; }
+        .text-secondary { color: #64748b; }
+        .text-text-primary { color: #1e293b; }
+        .text-text-secondary { color: #64748b; }
+        .border-border { border-color: #e2e8f0; }
+        .shadow-card { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); }
+        .transition-smooth { transition: all 0.2s ease-in-out; }
+        .input-base {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+        .input-base:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            border-color: #4f46e5;
+        }
+        .nav-link.active {
+            color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+        .btn-primary:hover:not(:disabled) { background-color: #4338ca; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #334155;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        .btn-secondary:hover:not(:disabled) { background-color: #f8fafc; }
+        .btn-secondary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .card-base {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .notification-card {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-surface border-b border-border sticky top-0 z-50 shadow-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2L3 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-13-5z"/><path d="M16 6L7 9.5v7.5c0 3.33 2.31 6.45 5.4 7.2 3.09-.75 5.4-3.87 5.4-7.2V9.5L16 6z" fill="white"/></svg>
+                    <h1 class="ml-3 text-xl font-semibold text-text-primary">Corporate Hub</h1>
+                </div>
+                <div class="flex-1 max-w-lg mx-8">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg class="h-5 w-5 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+                        <input type="text" class="input-base pl-10 pr-4" placeholder="Search notifications... (Ctrl+K)" id="globalSearch" />
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="flex items-center space-x-3 p-2 rounded-lg hover:bg-secondary-100 transition-smooth"><img class="h-8 w-8 rounded-full object-cover" src="https://placehold.co/32x32/EFEFEF/333333?text=JS" alt="Profile" /><div class="text-left hidden sm:block"><p class="text-sm font-medium text-text-primary">John Smith</p><p class="text-xs text-text-secondary">Senior Developer</p></div><svg class="h-4 w-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="bg-surface border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-8 overflow-x-auto">
+                <a href="employee_dashboard.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Dashboard</a>
+                <a href="company_news_management.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">News</a>
+                <a href="events_calendar_management.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Events</a>
+                <a href="employee_directory.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Directory</a>
+                <a href="team_spotlight_management.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Spotlight</a>
+                <a href="system_administration_dashboard.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Admin</a>
+                <a href="user_preferences_settings.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Settings</a>
+                <a href="notification_center.html" class="nav-link active py-4 px-2 border-b-2 border-primary whitespace-nowrap">Notifications</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-semibold text-text-primary mb-2">Notification Center</h2>
+                    <p class="text-text-secondary">Manage all your alerts, messages, and updates</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-text-secondary"><span id="unreadCount" class="font-medium text-primary">0</span> unread</span>
+                    <button id="markAllRead" class="btn-secondary text-sm">Mark All Read</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-base p-4 mb-6">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between space-y-4 lg:space-y-0">
+                <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex items-center space-x-2"><label for="statusFilter" class="text-sm font-medium text-text-primary">Status:</label><select id="statusFilter" class="input-base text-sm w-auto"><option value="all">All</option><option value="unread">Unread</option><option value="read">Read</option></select></div>
+                    <div class="flex items-center space-x-2"><label for="typeFilter" class="text-sm font-medium text-text-primary">Type:</label><select id="typeFilter" class="input-base text-sm w-auto"></select></div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="selectAll" class="text-sm text-primary hover:text-primary-700 font-medium">Select All</button>
+                    <button id="bulkMarkRead" class="btn-secondary text-sm" disabled>Mark Selected Read</button>
+                    <button id="bulkArchive" class="btn-secondary text-sm" disabled>Archive Selected</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-3">
+                <div class="card-base p-6 sticky top-24">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Categories</h3>
+                    <div class="space-y-2" id="categoryList"></div>
+                </div>
+            </div>
+            <div class="lg:col-span-9">
+                <div class="space-y-4" id="notificationFeed"></div>
+                <div class="mt-8 text-center">
+                    <button id="loadMore" class="btn-secondary">Load More Notifications</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- MOCK DATA ---
+        let notifications = [
+            { id: 1, type: 'system', priority: 'high', read: false, title: 'Server Maintenance Scheduled', content: 'Critical system maintenance will be performed tonight from 11 PM to 3 AM EST. All services will be temporarily unavailable during this window.', time: '10 min ago', icon: '<div class="w-10 h-10 bg-error-100 rounded-full flex items-center justify-center"><svg class="h-5 w-5 text-error" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5C3.312 18.167 4.274 19 5.814 19z"/></svg></div>', color: 'error' },
+            { id: 2, type: 'news', priority: 'medium', read: false, title: 'Q1 Financial Results Announced', content: "We're excited to share our strongest Q1 performance in company history. Revenue increased by 35% compared to last year, driven by our innovative product launches and exceptional team performance.", time: '2 hours ago', icon: '<img class="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=40" alt="Sarah Chen" />', color: 'primary' },
+            { id: 3, type: 'events', priority: 'medium', read: true, title: 'All-Hands Meeting Tomorrow', content: "Don't forget about the quarterly all-hands meeting tomorrow at 2:00 PM in the main conference room. We'll be discussing Q2 goals and celebrating recent achievements.", time: '5 hours ago', icon: '<div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center"><svg class="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>', color: 'accent' },
+            { id: 4, type: 'team', priority: 'low', read: false, title: 'Project Milestone Achieved', content: 'Great news! The development team has successfully completed the user authentication module ahead of schedule. This puts us on track for early delivery of the project.', time: '1 day ago', icon: '<img class="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=40" alt="Michael Johnson" />', color: 'success' },
+            { id: 5, type: 'personal', priority: 'low', read: false, title: 'Coffee Chat Invitation', content: "Hi John! I'd love to catch up over coffee and discuss the new project ideas we talked about last week. Are you free this Friday afternoon?", time: '2 days ago', icon: '<img class="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40" alt="David Wilson" />', color: 'secondary' },
+        ];
+        let selectedNotifications = new Set();
+        
+        // --- DOM ELEMENTS ---
+        const unreadCountEl = document.getElementById('unreadCount');
+        const notificationFeedEl = document.getElementById('notificationFeed');
+        const categoryListEl = document.getElementById('categoryList');
+        const statusFilter = document.getElementById('statusFilter');
+        const typeFilter = document.getElementById('typeFilter');
+        const selectAllBtn = document.getElementById('selectAll');
+        const bulkMarkReadBtn = document.getElementById('bulkMarkRead');
+        const bulkArchiveBtn = document.getElementById('bulkArchive');
+
+        // --- RENDER FUNCTIONS ---
+        const render = () => {
+            renderCategoriesAndFilters();
+            renderNotifications();
+            updateUnreadCount();
+            updateBulkActionButtons();
+        };
+
+        const renderCategoriesAndFilters = () => {
+            const categories = { all: 0, system: 0, news: 0, events: 0, team: 0, personal: 0 };
+            notifications.forEach(n => {
+                categories.all++;
+                categories[n.type]++;
+            });
+            categoryListEl.innerHTML = Object.keys(categories).map(cat => `
+                <button class="category-btn w-full text-left p-3 rounded-lg hover:bg-secondary-100 transition-smooth" data-category="${cat}">
+                    <div class="flex items-center justify-between">
+                        <span class="font-medium capitalize">${cat.replace('-', ' ')}</span>
+                        <span class="bg-secondary-200 text-secondary-600 text-xs px-2 py-1 rounded-full">${categories[cat]}</span>
+                    </div>
+                </button>
+            `).join('');
+            
+            typeFilter.innerHTML = Object.keys(categories).map(cat => `<option value="${cat}">${cat.charAt(0).toUpperCase() + cat.slice(1)}</option>`).join('');
+            
+            setActiveCategory(categoryListEl.querySelector('[data-category="all"]'));
+        };
+
+        const renderNotifications = () => {
+            const status = statusFilter.value;
+            const type = typeFilter.value;
+
+            const filtered = notifications.filter(n => {
+                const statusMatch = status === 'all' || (status === 'read' && n.read) || (status === 'unread' && !n.read);
+                const typeMatch = type === 'all' || n.type === type;
+                return statusMatch && typeMatch;
+            });
+
+            notificationFeedEl.innerHTML = filtered.map(createNotificationHTML).join('');
+        };
+
+        const createNotificationHTML = (notification) => {
+            const isRead = notification.read;
+            const readClass = isRead ? 'opacity-60' : '';
+            const readDot = !isRead ? '<span class="w-2 h-2 bg-primary rounded-full" title="Unread"></span>' : '';
+            return `
+                <div class="notification-card card-base border-l-4 border-${notification.color} ${readClass}" data-id="${notification.id}" data-type="${notification.type}" data-priority="${notification.priority}" data-read="${isRead}">
+                    <div class="p-6">
+                        <div class="flex items-start space-x-4">
+                            <input type="checkbox" class="notification-checkbox mt-1 form-checkbox h-5 w-5 text-primary rounded" data-id="${notification.id}" />
+                            <div class="flex-shrink-0">${notification.icon}</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-xs text-text-secondary capitalize">${notification.type.replace('-', ' ')}</span>
+                                        ${readDot}
+                                    </div>
+                                    <span class="text-xs text-text-secondary">${notification.time}</span>
+                                </div>
+                                <h4 class="font-medium text-text-primary mb-2">${notification.title}</h4>
+                                <p class="text-sm text-text-secondary mb-3">${notification.content}</p>
+                                <div class="flex items-center space-x-4">
+                                    <button class="mark-read-btn text-sm text-primary hover:underline font-medium" ${isRead ? 'disabled' : ''}>${isRead ? 'Read' : 'Mark as Read'}</button>
+                                    <button class="archive-btn text-sm text-text-secondary hover:text-text-primary">Archive</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        // --- LOGIC & EVENT HANDLERS ---
+        const updateUnreadCount = () => {
+            const count = notifications.filter(n => !n.read).length;
+            unreadCountEl.textContent = count;
+        };
+        
+        const setActiveCategory = (activeBtn) => {
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('bg-primary-50', 'text-primary'));
+            activeBtn.classList.add('bg-primary-50', 'text-primary');
+        };
+
+        const markAsRead = (id) => {
+            const notification = notifications.find(n => n.id == id);
+            if (notification && !notification.read) {
+                notification.read = true;
+                render();
+            }
+        };
+
+        const archiveNotification = (id) => {
+            const card = document.querySelector(`.notification-card[data-id="${id}"]`);
+            if (card) {
+                card.style.transform = 'translateX(100%)';
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    notifications = notifications.filter(n => n.id != id);
+                    render();
+                }, 300);
+            }
+        };
+        
+        const updateBulkActionButtons = () => {
+            const hasSelection = selectedNotifications.size > 0;
+            bulkMarkReadBtn.disabled = !hasSelection;
+            bulkArchiveBtn.disabled = !hasSelection;
+        };
+
+        // Event Listeners
+        document.getElementById('markAllRead').addEventListener('click', () => {
+            notifications.forEach(n => n.read = true);
+            render();
+        });
+
+        categoryListEl.addEventListener('click', (e) => {
+            const button = e.target.closest('.category-btn');
+            if (button) {
+                setActiveCategory(button);
+                typeFilter.value = button.dataset.category;
+                renderNotifications();
+            }
+        });
+
+        [statusFilter, typeFilter].forEach(el => el.addEventListener('change', renderNotifications));
+        
+        notificationFeedEl.addEventListener('click', e => {
+            const target = e.target;
+            const card = target.closest('.notification-card');
+            if (!card) return;
+            const id = card.dataset.id;
+
+            if (target.matches('.mark-read-btn')) markAsRead(id);
+            if (target.matches('.archive-btn')) archiveNotification(id);
+            if (target.matches('.notification-checkbox')) {
+                if (target.checked) selectedNotifications.add(id);
+                else selectedNotifications.delete(id);
+                updateBulkActionButtons();
+            }
+        });
+
+        selectAllBtn.addEventListener('click', () => {
+            const visibleCheckboxes = [...notificationFeedEl.querySelectorAll('.notification-checkbox')];
+            const allChecked = visibleCheckboxes.every(cb => cb.checked);
+            visibleCheckboxes.forEach(cb => {
+                cb.checked = !allChecked;
+                const id = cb.closest('.notification-card').dataset.id;
+                if (!allChecked) selectedNotifications.add(id);
+                else selectedNotifications.delete(id);
+            });
+            updateBulkActionButtons();
+        });
+
+        bulkMarkReadBtn.addEventListener('click', () => {
+            selectedNotifications.forEach(id => markAsRead(id));
+            selectedNotifications.clear();
+            render();
+        });
+        
+        bulkArchiveBtn.addEventListener('click', () => {
+            selectedNotifications.forEach(id => archiveNotification(id));
+            selectedNotifications.clear();
+        });
+        
+        document.getElementById('loadMore').addEventListener('click', () => {
+            alert('Loading more notifications...');
+        });
+
+        // --- INITIALIZATION ---
+        render();
+    });
+    </script>
+</body>
+</html>

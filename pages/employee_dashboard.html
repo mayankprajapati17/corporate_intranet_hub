@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Dashboard - Corporate Intranet Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles to match the original design intent */
+        .bg-background { background-color: #f8fafc; }
+        .bg-surface { background-color: #ffffff; }
+        .bg-primary { background-color: #4f46e5; }
+        .bg-primary-50 { background-color: #eef2ff; }
+        .bg-primary-100 { background-color: #e0e7ff; }
+        .text-primary { color: #4f46e5; }
+        .border-primary { border-color: #4f46e5; }
+        .bg-success { background-color: #22c55e; }
+        .bg-success-50 { background-color: #f0fdf4; }
+        .text-success { color: #16a34a; }
+        .bg-accent { background-color: #f97316; }
+        .bg-accent-50 { background-color: #fff7ed; }
+        .text-accent { color: #f97316; }
+        .bg-error { background-color: #ef4444; }
+        .text-error { color: #ef4444; }
+        .bg-purple-50 { background-color: #faf5ff; }
+        .text-purple-600 { color: #9333ea; }
+        .bg-yellow-50 { background-color: #fefce8; }
+        .text-yellow-600 { color: #ca8a04; }
+        .text-text-primary { color: #1e293b; }
+        .text-text-secondary { color: #64748b; }
+        .border-border { border-color: #e2e8f0; }
+        .shadow-card { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); }
+        .transition-smooth { transition: all 0.2s ease-in-out; }
+        .input-base {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+        .input-base:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            border-color: #4f46e5;
+        }
+        .nav-link.active {
+            color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .card-interactive {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease-in-out;
+        }
+        .card-interactive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .task-item:hover .delete-task-btn {
+            opacity: 1;
+        }
+        .delete-task-btn {
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-surface border-b border-border sticky top-0 z-50 shadow-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2L3 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-13-5z"/><path d="M16 6L7 9.5v7.5c0 3.33 2.31 6.45 5.4 7.2 3.09-.75 5.4-3.87 5.4-7.2V9.5L16 6z" fill="white"/></svg>
+                    <h1 class="ml-3 text-xl font-semibold text-text-primary">Corporate Hub</h1>
+                </div>
+                <div class="flex-1 max-w-lg mx-8">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg class="h-5 w-5 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+                        <input type="text" class="input-base pl-10 pr-4" placeholder="Search news, events, people... (Ctrl+K)" id="globalSearch" />
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-secondary-400 hover:text-primary transition-smooth rounded-full hover:bg-secondary-100"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93-3.93 3.93-3.93-3.93 3.93-3.93z"/></svg><span class="absolute -top-1 -right-1 h-5 w-5 bg-error text-white text-xs rounded-full flex items-center justify-center">3</span></button>
+                    <button class="flex items-center space-x-3 p-2 rounded-lg hover:bg-secondary-100 transition-smooth"><img class="h-8 w-8 rounded-full object-cover" src="https://placehold.co/32x32/EFEFEF/333333?text=JS" alt="Profile" /><div class="text-left hidden sm:block"><p class="text-sm font-medium text-text-primary">John Smith</p><p class="text-xs text-text-secondary">Senior Developer</p></div><svg class="h-4 w-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="bg-surface border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-8 overflow-x-auto">
+                <a href="employee_dashboard.html" class="nav-link active py-4 px-2 border-b-2 border-primary whitespace-nowrap">Dashboard</a>
+                <a href="company_news_management.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">News</a>
+                <a href="events_calendar_management.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Events</a>
+                <a href="employee_directory.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Directory</a>
+                <a href="team_spotlight_management.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Spotlight</a>
+                <a href="system_administration_dashboard.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Admin</a>
+                <a href="user_preferences_settings.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Settings</a>
+                <a href="notification_center.html" class="nav-link py-4 px-2 border-b-2 border-transparent whitespace-nowrap">Notifications</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <div class="bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg p-6 border border-primary-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-text-primary mb-2">Good morning, John! 👋</h2>
+                        <p class="text-text-secondary">Here's your snapshot for today.</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-semibold text-primary" id="currentTime"></div>
+                        <div class="text-sm text-text-secondary" id="currentDate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- KPI Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="kpi-cards">
+            <!-- KPI Cards will be rendered here -->
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Column -->
+            <div class="lg:col-span-7 space-y-6">
+                 <div class="card-base p-6">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Company News</h3>
+                    <div id="newsList" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                        <!-- News items will be rendered here -->
+                    </div>
+                     <div class="mt-4 pt-4 border-t border-border">
+                        <a href="#" class="text-sm text-primary hover:text-primary-700 font-medium">View all news →</a>
+                    </div>
+                </div>
+                <div class="card-base p-6 border-t-4 border-yellow-400">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">My Tasks</h3>
+                    <div id="taskList" class="space-y-3 mb-4">
+                        <!-- Task items rendered here -->
+                    </div>
+                    <form id="addTaskForm" class="flex items-center space-x-2">
+                        <input type="text" id="newTaskInput" class="input-base" placeholder="Add a new task..." required>
+                        <button type="submit" class="btn-primary flex-shrink-0">Add Task</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="card-base p-6">
+                    <h3 class="text-lg font-semibold text-text-primary mb-6">Upcoming Events</h3>
+                    <div id="eventsList" class="space-y-3"></div>
+                    <div class="mt-4 pt-4 border-t border-border">
+                        <a href="#" class="text-sm text-primary hover:text-primary-700 font-medium">View full calendar →</a>
+                    </div>
+                </div>
+                <div id="teamSpotlight" class="card-base p-6 border-t-4 border-purple-400"></div>
+            </div>
+        </div>
+
+        <!-- Quick Links Grid -->
+        <div class="mt-8">
+            <div class="card-base p-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-6">Quick Links</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="quickLinks">
+                    <!-- Quick links rendered here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- MOCK DATA ---
+        const kpis = [
+            { title: 'Active Projects', value: '12', change: '+2', color: 'primary', icon: '<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>' },
+            { title: 'Team Morale', value: '92%', change: '+3%', color: 'success', icon: '<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>' },
+            { title: 'Open Positions', value: '8', change: '-1', color: 'accent', icon: '<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>' },
+            { title: 'Revenue Growth', value: '7.2%', change: '+1.5%', color: 'error', icon: '<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>' },
+        ];
+        let tasks = [
+            { id: 1, text: 'Finalize Q3 project proposal', completed: false },
+            { id: 2, text: 'Submit expense report for travel', completed: true },
+            { id: 3, text: 'Schedule team performance reviews', completed: false },
+        ];
+        const news = [
+            { title: 'Q1 All-Hands Meeting Scheduled', category: 'Announcement', time: '2 hours ago', color: 'primary' },
+            { title: 'New Employee Benefits Package', category: 'HR Update', time: '5 hours ago', color: 'success' },
+            { title: 'Office Renovation Update', category: 'Facilities', time: '1 day ago', color: 'accent' },
+        ];
+        const events = [
+            { title: 'Team Standup', description: 'Daily sync with development team', time: 'Today, 11:00 AM', color: 'primary' },
+            { title: 'Product Demo', description: 'Q1 feature showcase', time: 'Tomorrow, 2:00 PM', color: 'accent' },
+        ];
+        const spotlight = { name: 'Sarah Chen', title: 'UX Designer', achievement: 'Led the redesign of our mobile app, resulting in 40% increase in user engagement', img: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=200' };
+        const quickLinks = [
+            { title: 'HR Portal', icon: '<svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>', color: 'primary' },
+            { title: 'IT Support', icon: '<svg class="h-6 w-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"/></svg>', color: 'success' },
+            { title: 'Projects', icon: '<svg class="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>', color: 'accent' },
+            { title: 'Documents', icon: '<svg class="h-6 w-6 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>', color: 'secondary' },
+        ];
+
+        // --- DOM ELEMENTS ---
+        const currentTimeEl = document.getElementById('currentTime');
+        const currentDateEl = document.getElementById('currentDate');
+        const kpiCardsEl = document.getElementById('kpi-cards');
+        const taskListEl = document.getElementById('taskList');
+        const addTaskForm = document.getElementById('addTaskForm');
+        const newTaskInput = document.getElementById('newTaskInput');
+        const newsListEl = document.getElementById('newsList');
+        const eventsListEl = document.getElementById('eventsList');
+        const teamSpotlightEl = document.getElementById('teamSpotlight');
+        const quickLinksEl = document.getElementById('quickLinks');
+
+        // --- RENDER FUNCTIONS ---
+        const renderTime = () => {
+            const now = new Date();
+            currentTimeEl.textContent = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            currentDateEl.textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        };
+        
+        const renderKPIs = () => {
+            kpiCardsEl.innerHTML = kpis.map(kpi => {
+                const iconColorClass = `text-${kpi.color}`;
+                const bgColorClass = `bg-${kpi.color}-50`;
+                const changeColorClass = kpi.change.startsWith('+') ? 'text-success' : 'text-error';
+
+                return `
+                    <div class="card-base p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-text-secondary font-medium">${kpi.title}</p>
+                                <p class="text-2xl font-semibold text-text-primary">${kpi.value}</p>
+                                <p class="text-xs ${changeColorClass} font-medium">${kpi.change} vs last month</p>
+                            </div>
+                            <div class="p-3 ${bgColorClass} rounded-full">${kpi.icon.replace('text-primary', iconColorClass).replace('text-success', iconColorClass).replace('text-accent', iconColorClass).replace('text-error', iconColorClass)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        };
+
+        const renderTasks = () => {
+            taskListEl.innerHTML = tasks.map(task => `
+                <div class="task-item flex items-center justify-between p-2 rounded-md hover:bg-secondary-50">
+                    <label class="flex items-center space-x-3 cursor-pointer">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-primary rounded" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
+                        <span class="text-sm ${task.completed ? 'line-through text-text-secondary' : 'text-text-primary'}">${task.text}</span>
+                    </label>
+                    <button class="delete-task-btn p-1 text-red-500 hover:text-red-700" data-id="${task.id}" title="Delete task">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            `).join('');
+        };
+        
+        const renderNews = () => {
+            if (newsListEl) {
+                newsListEl.innerHTML = news.map(item => `
+                    <div class="border-l-4 border-${item.color} pl-4 py-2 cursor-pointer hover:bg-secondary-50 rounded-r-md">
+                        <h4 class="font-medium text-text-primary mb-1">${item.title}</h4>
+                        <div class="flex items-center space-x-4 text-xs text-text-secondary">
+                            <span>${item.time}</span>
+                            <span class="px-2 py-1 bg-${item.color}-50 text-${item.color} rounded-full">${item.category}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        };
+
+        const renderEvents = () => {
+            eventsListEl.innerHTML = events.map(event => `
+                <div class="flex items-center space-x-3 p-3 bg-${event.color}-50 rounded-lg border border-${event.color}-100 cursor-pointer hover:shadow-md transition-shadow">
+                    <div class="w-2 h-2 bg-${event.color} rounded-full flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <h4 class="font-medium text-text-primary">${event.title}</h4>
+                        <p class="text-xs text-${event.color} font-medium">${event.time}</p>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        const renderSpotlight = () => {
+            teamSpotlightEl.innerHTML = `
+                <h3 class="text-lg font-semibold text-text-primary mb-4">Team Spotlight</h3>
+                <div class="text-center">
+                    <img class="w-16 h-16 rounded-full mx-auto mb-3 object-cover" src="${spotlight.img}" alt="${spotlight.name}" />
+                    <h4 class="font-medium text-text-primary">${spotlight.name}</h4>
+                    <p class="text-sm text-text-secondary mb-2">${spotlight.title}</p>
+                    <p class="text-xs text-text-secondary">${spotlight.achievement}</p>
+                </div>
+            `;
+        };
+        
+        const renderQuickLinks = () => {
+            quickLinksEl.innerHTML = quickLinks.map(link => `
+                <a href="#" class="card-interactive p-4 text-center group">
+                    <div class="w-12 h-12 bg-${link.color}-50 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-${link.color}-100 transition-smooth">${link.icon}</div>
+                    <h4 class="text-sm font-medium text-text-primary">${link.title}</h4>
+                </a>
+            `).join('');
+        };
+
+        // --- EVENT LISTENERS & LOGIC ---
+        addTaskForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const text = newTaskInput.value.trim();
+            if (text) {
+                tasks.push({ id: Date.now(), text, completed: false });
+                newTaskInput.value = '';
+                renderTasks();
+            }
+        });
+
+        taskListEl.addEventListener('click', e => {
+            if (e.target.matches('.form-checkbox')) {
+                const taskId = parseInt(e.target.dataset.id);
+                const task = tasks.find(t => t.id === taskId);
+                if (task) {
+                    task.completed = e.target.checked;
+                    renderTasks();
+                }
+            }
+            if (e.target.closest('.delete-task-btn')) {
+                const taskId = parseInt(e.target.closest('.delete-task-btn').dataset.id);
+                tasks = tasks.filter(t => t.id !== taskId);
+                renderTasks();
+            }
+        });
+
+        // --- INITIALIZATION ---
+        renderTime();
+        setInterval(renderTime, 1000);
+        renderKPIs();
+        renderTasks();
+        renderNews();
+        renderEvents();
+        renderSpotlight();
+        renderQuickLinks();
+    });
+    </script>
+</body>
+</html>
